@@ -1,0 +1,13 @@
+#!/bin/bash
+read -p "enter starting number:" sn
+read -p "enter ending number:" en
+for ((i = $sn; i <= $en; i++))
+do
+num=$(( $i % 2 ))
+if [[ $num -eq 0 ]]
+then
+echo "$i is Even Number"
+else
+echo "$i is Odd Number"
+fi
+done

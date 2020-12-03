@@ -1,0 +1,22 @@
+#!/bin/bash
+read -p "enter number1:" n1
+read -p "enter number2:" n2
+echo -e "1.Add \n2.Sub \n3.Div \n4.Mul"
+echo "enter your choice:"
+read opt
+case $opt in 
+    "1")
+    sum=$(( $n1 + $n2 ))
+    echo "sum of num is $sum" ;;
+    "2")
+    sub=$(( $n1 - $n2 ))
+    echo "sub of num is $sub" ;;
+    "3")
+    Div=$(( $n1 / $n2 ))
+    echo "Div of num is $Div" ;;
+    "4")
+    Mul=$(( $n1 * $n2 ))
+    echo "Mul of num is $Mul" ;;
+    *)
+    echo "enter corret choice" ;;
+esac

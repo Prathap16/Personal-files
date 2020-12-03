@@ -1,0 +1,12 @@
+#!/bin/bash
+echo  "Enter the numbers:"
+read n
+sd=0
+sum=""
+while [[ $n -gt 0 ]]
+do
+sd=$(( $n % 10 ))
+n=$(( $n / 10 ))
+sum=$(( $sum + $sd ))
+done
+echo "sum of number is $sum"

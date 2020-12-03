@@ -1,0 +1,14 @@
+#!/bin/sh
+read -p "enter the number:" n
+a=0
+b=1
+echo $a
+echo $b
+while [ $n -gt 2 ]
+do
+c=$(($a+$b))
+echo $c
+a=$b
+b=$c
+let n--
+done
