@@ -1,0 +1,41 @@
+Find command__________
++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+* to find the file with file name in current directory.
+
+	#find . -name file1
+
+* to find the file with file name in home directory.
+
+	#find /home -name file1
+
+*Find Files Using Name and Ignoring Case.
+
+	#find /home -iname file1
+
+*Find Directories Using Name.
+
+	*#find /home -type d -name dir1
+
+*Find all php files whose name is tecmint.php in a current working directory.
+
+	*#find . -type f -name file.php
+#find -mtime 10 min directoryname.
+
+*Find all PHP Files in Directory.
+
+	#find . -type f -name "*.php"
+
+*Find all the files whose permissions are 777
+
+	#find . type f -perm 0777 -print
+
+#find -mtime 10min direcctory
+#find -size 10G directory path.
+
+
+Find the passwd file under root and one level down. (i.e root — level 1, and one sub-directory — level 2)
+find / -maxdepth 2 -name passwd
+
+Find the password file between sub-directory level 2 and 4.
+find / -mindepth 3 -maxdepth 5 -name passwd

@@ -1,0 +1,55 @@
+Networking:
+
+Some Important configuration files/directories of network configurations:
+
+#/etc/sysconfig/network-scripts 
+is the directory which keeps the configuration of network devices connected to the system.
+
+#/etc/sysconfig/network 
+is a file which keeps the information about the hostname assigned to the system. 
+If you want to change the hostname permanently, you need to change the hostname in this file.
+
+#/ete/hostname same as above in centos7
+
+#/etc/hosts 
+a file which is responsible for resolving hostname into IP locally, in other word it acts as local DNS if DNS server is not accessible.
+
+#/etc/resolv.conf 
+is a file which keeps the address of DNS server to which the clients will be accessing to resolve IP to hostname and hostname to IP.
+
+
+LAB work
+
+To check the ip address assign to all the interfaces
+#ifconfig
+
+To chech the ip of a particular interface
+#ifconfig < adapter name >
+#ifconfig eth0
+
+To check the hostname of the system.
+#hostname
+
+To check ip of the host
+#hostname –i
+
+To check whether DNS is resolving or not
+#host < ip address >
+#host 192.168.10.95
+With ip address
+#dig –x <ip address>
+#dig –x 192.168.10.98
+
+Checking network connectivity using ping command
+#ping < ip address >
+#ping 192.168.10.95
+To limit the pinging for specific number of counts
+#ping –c <counts> <ip address>
+#ping –c 2 192.168.10.95
+
+Changing the hostname
+? Check the current hostname with hostname command
+? The syntax for changing the hostname is
+#hostname <new name>
+#hostname kernellinux.kt.com
+

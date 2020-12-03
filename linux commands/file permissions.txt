@@ -1,0 +1,63 @@
+File Permissions:
+__________________________________
+*. Ownership
+....u....1 User: Who can create files.
+.....g...2. Group: A user group contains multiple user.All the members of group will have same permissions assigmed to group.
+......o..3. Others: Anyother neither create file nor belongs to group will have permissions to access to that group.
+
+
+*.Permissions
+
+type of file		FILE				Directory				                   Numerical	
+
+Read..r			To open and read file		to list the content of directory		4
+
+Write..w			To modify the content of file		to add,remove,rename the files in directory	2
+
+Execute..x		to run command/shell script		to enter in to that directory			1
+
+
+File permisson set on files.
+1.... symbolic method.
+
+	#chmod u=rwx g=rw o=r file1
+	#chmod u	-x,g-r,o-x fle1
+	#chmod	ugo-x file1
+
+2... Numirecal method
+
+	#chmod 764 file1
+	*here 7 = 4+2+1
+	            6=4+2
+                              5=4+1
+	            4=Read
+	            3=2+1
+	            2=write
+	            1=Execute
+
+*...UMASK: User file creation mask.
+Umask: 0022
+Default file prmission calculatios
+ File permissions is 666.
+minus umask value 022
+Default file permission for 644.
+
+
+Default directory prmission calculatios
+ File permissions is 777.
+minus umask value 022
+Default file permission for 755.
+
+>>>>>>modifying umask 
+	#umask 022
+
+*...Changing owner and group of file
+
+	#chown user:group file1
+	#chown ravi:admin fil1
+
+Change group of files.
+
+	#chgrp groupname file1
+
+

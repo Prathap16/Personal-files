@@ -1,0 +1,12 @@
+How to make file empty;
+
+1 by redirectng to NUll
+	#> filename
+2 by using true.
+	#true > file
+3 by using cat.
+	#cat /dev/null > filename
+3  by using copy.
+	#cp /dev/null filename
+5 by using echo.
+	#echo -n  > filename.

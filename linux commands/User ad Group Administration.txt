@@ -1,0 +1,172 @@
+USER ADMINISTRATION:-----
+_____________________________________________________
+
+Some Important Points related to Users:
+? Users and groups are used to control access to files and resources
+? Users login to the system by supplying their username and password
+? Every file on the system is owned by a user and associated with a group
+? Every process has an owner and group affiliation, and can only access the resources its owner or group can access.
+? Every user of the system is assigned a unique user ID number ( the UID)
+? Users name and UID are stored in /etc/passwd
+? User’s password is stored in /etc/shadow in encrypted form.
+? Users are assigned a home directory and a program that is run when they login (Usually a shell)
+? Users cannot read, write or execute each other’s files without permission.
+
+
+Users name and UID are stored in /etc/passwd
+User’s password is stored in /etc/shadow in encrypted form.
+
+The /etc/passwd file:::::::::7
+This file contains a list of all user accounts. Each user account is stored in an individual line. Each line contains following seven fields separated by colons.
+
+Username
+Placeholder character for password
+UID
+GID
+Description
+Home directory
+Login shell
+
+The /etc/shadow file:;;;;9
+This file stores users’ password and password related information. Just like /etc/passwd file, this file also uses an individual line for each entry. Each line contains following nine fields.
+
+Username
+Encrypted password
+Number of days when password was last changed
+Number of days before password can be changed
+Number of days after password must be changed
+Number of days before password expiry date to display the warning message
+Number of days to disable the account after the password expiry
+Number of days since the account is disabled
+Reserved field
+
+Password Complexity Requirements:
+? A root user can change password of self and of any user in the system, there are no rules for root to assign a password. Root can assign any length of password either long or short, it can be alphabet or numeric or both. On the whole there is no limitation for root for assigning a password.
+? A normal user can change only its password. Valid password for a normal user should adhere to the following rules
+? It should be at least 7 characters but not more than 255 characters.
+? At least one character should be Upper case
+? At least one character should be Lower case
+? At least one character should be a symbol, and one character should be a number.
+? It should not match the previous password.
+? It cannot have a sequence (ex: 123456 or abcdef )
+? The login name and the password cannot be same.
+
+Creating a user:::::
+? The syntax for creating a user in Linux is
+? # useradd <option> <username>
+? options are
+? -u user id
+? -G Secondary group id
+? -g primary group id
+? -d home directory
+? -c comment
+? -s shell
+
+Let’s create a user with default attributes.
+#useradd <username>
+#useradd ktusr
+
+Let’s create a user with our own attributes
+Create a user with following attributes
+? Name = ktuser2
+? uid=505
+? home dir = /home/kernel
+? comment =salesman
+? #useradd ktuser2 –u 505 -g 505 –d /home/kernel –c salesman
+
+Assigning password to the user:::
+As a root user we can assign any password to any user
+? The syntax for assigning a password is
+? #passwd to assign password to current user ( the one with which you have logged in, if it is root then root’s password will be changed)
+? #passwd <user name> to assign a password to a specific user, only root can assign password to other user.
+
+Modifying the user’s attribute
+? After creating a user if we need to modify the attributes of user like changing uid, changing secondary group id or adding a comment, locking or unlocking the user account, can be done by following command
+# usermod <options> <username>
+? options are:
+? all the options which are used with useradd command can be used and also the following,
+? -l to change login name
+? -L to LOCK account
+? -U to UNLOCK account
+? ex. # usermod -l newname oldname (changing the name of the user)
+? ex. # usermod -L newname to lock the user account
+? ex. # usermod -U newname to unlock the user account
+? Note: - when an account is locked it will show! (Exclamation mark) in /etc/shadow file.
+
+
+#chage <option> <value> <username>
+? The options which can be used are as follows
+? -m for Min password age
+? -M for Max password age
+? -d for last time the password is changed.
+? -W Password expiration warnings
+? -I Password inactive [-1 means inactive].
+? -E A/C expiration date
+
+Deleting a User:
+? To delete a user the syntax used is
+? #userdel <username> it will only delete the user but home directory will be there. To delete the user with its home directory use the following command.
+? #userdel –r < user name >
+? #userdel –r ktuser2
+
+
+Main topics;
+useradd
+usermod
+passwd
+chage 
+
+
+
+
+Group Administration:
+++++++++++++++++++++++++++++++++++++++
+Important files
+/etc/group
+/etc/gshadow
+
+Creating a Group with default options :
+ To create a group the syntax is
+ #groupadd <name for the group>
+ #groupadd ktgroup
+
+
+#groupadd <option> <name for the group>
+#groupadd -g 595 ktgroup
+
+Modifying the properties of the group
+? To modify the group properties the syntax is
+? #groupmod <option> <arguments> <group name>
+? The options are
+? -g to change the group id
+? -o to override the previous assigned id, if it matches with the new one.
+? -n to change the group name
+
+Adding and Removing Members to a Group
+Adding the members to the group is to add users to the group. To add the members to the group the syntaxes are
+
+**To add single user to the group
+#usermod –G <group name > < user name>
+#usermod –G ktgroup ktuser
+
+Adding multiple single or multiple users to the group with various attributes
+? #gpasswd < option> <arguments> <group name>
+? Options:
+? -M For Adding Multiple users to a group
+? -A for Adding a group Administrator
+? -a for Adding a single user to a group
+? -d removing a user from a group
+
+Deleting group:
+# groupdel [group_name]
+
+
+Maintopic:
+useradd
+usermod
+passwd
+chage
+groupadd
+groupmod
+gpasswd
+groupdel

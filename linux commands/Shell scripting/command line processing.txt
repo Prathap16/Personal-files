@@ -1,0 +1,44 @@
+Command Line Processing
+Now try following command (assumes that the file "grate_stories_of" is not exist on your disk)
+$ ls grate_stories_of
+It will print message something like -
+grate_stories_of: No such file or directory
+Well as it turns out ls was the name of an actual command and shell executed this command when
+given the command. Now it creates one question What are commands? What happened when you
+type $ ls grate_stories_of? The first word on command line, ls, is name of the command to be
+executed. Everything else on command line is taken as arguments to this command. For eg.
+$ tail +10 myf
+Here the name of command is tail, and the arguments are +10 and myf.
+Now try to determine command and arguments from following commands:
+$ ls foo
+$ cp y y.bak
+$ mv y.bak y.okay
+$ tail -10 myf
+$ mail raj
+$ sort -r -n myf
+$ date
+$ clear
+Command No. of argument to this command Actual Argument
+ls 1 foo
+
+cp 2 y and y.bak
+mv 2 y.bak and y.okay
+tail 2 -10 and myf
+mail 1 raj
+sort 3 -r, -n, and myf
+date 0
+clear 0
+NOTE: $# holds number of arguments specified on command line. and $* or $@ refer to all
+arguments in passed to script. Now to obtain total no. of Argument to particular script, your $#
+variable.
+
+
+
+Shell arguments:
+
+$# number ofargumentspassed
+$* all aruments prints
+$1 first argument
+$2 second argument
+$? it shows 0 or other than 0 (itshows wether commandis executedor not.
+$$

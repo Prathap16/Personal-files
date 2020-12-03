@@ -1,0 +1,48 @@
+SELinux:---------
+______________________________________________-
+
+Security-Enhanced Linux (SELinux) is a Linux kernel security module that provides 
+a mechanism for supporting access control security policies, including mandatory access controls (MAC). 
+SELinux is a set of kernel modifications and user-space tools that have been added to various Linux distributions.
+
+Important SELinux configuration Files
+/etc/selinux/config is the main configuration file of SELinux.
+/etc/sysconfig/selinux contains a symbolic link to the actual configuration file, /etc/selinux/config.
+
+Modes of SELinux
+? There are three modes in which SELinux can be at a time, they are
+? Enforcing, Permissive and Disabled
+? Enforcing
+Enable and enforce the SELinux security policy on the system, denying access and logging actions
+? Permissive
+Permissive mode is similar to Debugging Mode. In Permissive Mode, SELinux policies and rules are applied to subjects and objects, but actions ( for example, Access Control denials) are not affected. 
+The biggest advantage of Permissive Mode is that log files and error messages are generated based on the SELinux policy implemented.
+? Disabled
+SELinux is turned off and no warn and log messages will be generated and stored
+
+
+To check the SELinux Mode
+#getenforce
+#sestatus
+
+Display the SELinux context of a file or directory.
+To display the context of a file the syntax is
+#ls –Z <filename>
+
+To display the context of a directory the syntax is
+#ls –ldZ <directory name>
+
+Displaying the SELinux Context of a Process
+To display the context of a process running in the system, the syntax is
+#ps –efZ |grep <process name>
+#ps –efZ |grep http
+
+Changing the Modes of SElinux
+To change the mode of SElinux the syntax is
+#setenforce <option>
+Options used are 0 or 1 (Where 0 means Permissive and 1 means Enforcing)
+To change the SELinux Mode to permissive
+#setenforce 0
+To change the SELinux Mode back to Enforcing mode
+#setenforce 1
+? Verify it by getenforce or sestatus command.

@@ -1,0 +1,103 @@
+NFS(NETWORK FILE SYSTEM/SHARING)
+? NFS stands for Network File System, and is a way to share files between machines as if they were on your local hard drive. 
+Linux can be both an NFS server and an NFS client, which means that it can export filesystems to other systems, 
+and mount filesystems exported from other machines.
+? For example NFS server could be a Linux system and Unix could be a client. But it can’t be a window system because window is not NFS compatible. 
+The NFS server exports one or more directories to the client systems, and the client systems mount one or more of the shared directories 
+to local directories called mount points. After the share is mounted, all I/O operations are written back to the server, 
+and all clients notice the change as if it occurred on the local filesystem.
+? A manual refresh is not needed because the client accesses the remote filesystem as if it were local. 
+Because access is granted by IP address, a username and password are not required. 
+However, there are security risks to consider because the NFS server knows nothing about the users on the client system.
+
+Steps to configure NFS server:
+Step1: Install the NFS package using yum or rpm.
+Step2: Create a dir or directory .
+Step3: Export the directory by editing /etc/exports file and using exportfs command
+Step4: Restart the services and make it permanent.
+
+Step1: Install the NFS package.
+? Check whether the package is installed
+#rpm –q nfs-utils
+? If it is not installed use following command to install it
+#yum install nfs-utils* -y
+
+Step2: Create a directory 
+#mkdir /root/divya
+
+Step3: Export the directory by editing /etc/exports file and using exportfs command
+? Edit the /etc/exports file
+#vim /etc/exports
+****/root/divya	192.168.43.220/24(rw,rsync)
+
+? Now run the exportfs command to export the directory
+#exportfs –avr
+Options:
+-a Exports or un-exports all directories
+-r Reexport all directories
+-u Unexports one or more directories
+-v Provides verbose outpu
+
+Client side configuration for NFS mounting:
+------------------------------------------------------------------------------
+Step1: Check and Install the NFS package if not installed
+Step2: Start the NFS services
+Step3: Check which directory is exported for this machine using showmount command
+Step4: Make a directory and mount the NFS dir over it.
+Step5: Add some data to it and check the same is updated on server side
+
+Step1: Check and Install the package for NFS
+#rpm –q nfs-utils
+It is already installed, if it is not installed use yum install nfs-utils* -y
+
+Step2: check and start the NFS services and make it permanent.
+#service nfs start
+#chkconfig - -list nfs
+
+Step3: Check which directory is exported for this machine using showmount command
+? To check the exported directories from server the syntax is
+#showmount –e <server ip address>
+
+Step4: Make a directory and mount NFS over it.
+? #mkdir /ktnfs
+? #mount –t nfs 192.168.10.91:/ktdir /ktnfs
+
+Step5: Add some data to it and check the same is updated on server side.
+? Note that it is showing permission error because on server side the directory does not have write permissions neither for group nor for others.
+? Log into server and add write permission to NFS directory
+? Now , Again move back to client machine and try uploading some files
+? To make it permanent mount edit /etc/fstab file as follows
+
+Auto-mounting the NFS directory:
+------------------------------------------------------------
+? All the resources of the server is valuable and needs to be available for usage, 
+when we mount a NFS directory over client the network resource gets busy, 
+even when the work is finished the network resource will still be busy as mounting occupy it.
+? Autofs automatically mounts file systems for you when they are requested. 
+This has a very handy feature: It's great for handling removable media. Just CD to the right directory,
+ or execute ls or do anything that sends a request to the mount point: and the daemon mounts it. After all, 
+it's the kind of job that's beneath the dignity of a human being First; you need to install the "autofs" package. 
+It should include some appropriate config files. The files you need is /etc/auto. Master
+
+Steps to configure auto mount at client side
+
+Step1: Log into client side and check whether autofs is install or not, if not install autofs
+? Check whether autofs is install or not
+#rpm –q autofs
+? if it is not installed, install it by using yum or rpm
+#yum install autofs* -y
+
+Step2: Edit the /etc/auto. master as follows
+#vim /etc/auto.master Standby time
+Dir to mount NFS auto mount configuration file for this mount point
+
+Step3: Create /etc/auto.ktnfs file and /ktnfs directory if not created earlier
+? #vim /etc/auto.ktnfs
+
+Steps for removing NFS:
+___________________________
+
+Step1: Remove all autofs details from all config files like /etc/auto.master and /etc/auto.ktnfs.
+
+Step2: un-export all the directory which was exported earlier using following command
+? # exportfs –auv

@@ -1,0 +1,58 @@
+BACKUP AND RESTORE
+? In information technology, a backup or the process of backing up is making copies of data which may be used to restore the original after a data loss
+ event.
+? Backups have two distinct purposes
+? The primary purpose is to recover data after its loss, be it by data deletion or corruption. 
+Data loss is a very common experience of computer users. 67% of Internet users have suffered serious data loss.
+? The secondary purpose of backups is to recover data from an earlier time, 
+according to a user-defined data retention policy, typically configured within a backup application for how long copies of data are required.
+? Backup is the most important job of a system administrator, as a system admin it is your duty to take backup of the data every day.
+? Many companies have gone out of the market because of poor backup planning.
+? The easiest way to back up your files is just copying. But if you have too many files to backup, 
+copying and restoring may take too long time and it is not convenient. If there is a tool that can put many files into one file, the world will be better. 
+Fortunately, 'tar' is used to create archive files. It can pack files or directories into a 'tar' file. It is like WinZip in Windows, without much compression.
+? The gzip program compresses a single file. One important thing to remember about gzip is that, unlike tar, 
+it replaces your original file with a compressed version. (The amount of compression varies with the type of data, 
+but a typical text file will be reduced by 70 to 80 percent.)
+
+LAB WORK:-
+To backup the file using tar
+? To backup the file using tar the syntax is
+#tar –cvf <destination and name to be > < source file>
+#tar –cvf /opt/etc.tar /etc
+? Check the size of tar file by using du –h <file name > command
+#du –h /opt/etc.tar
+Apply gzip on tar file and check the size.
+? To apply gzip on a tar file, the syntax is
+#gzip <file name>
+#gzip /opt/etc.tar
+? Now check the size of the file
+
+Transfer the file to other system and remove gzip and tar from it and check the size on every step.
+? Let’s transfer the file to other computer using scp
+#scp /opt/etc.tar.gz 192.168.10.95:/root/
+? Login to the remote system, remove gzip it and check the size.
+? To gunzip a file the syntax is
+#gunzip <file name>
+#gunzip etc.tar.gz
+Untar the file and check for the size of the file/directory
+? To untar a file the syntax is
+#tar -xvf <file name>
+#tar –xvf etc.tar
+
+c – Creates a new .tar archive file.
+v – Verbosely show the .tar file progress.
+f – File name type of the archive file.
+
+
+Create tar.gz Archive File
+tar -cvzf MyImages-14-09-12.tar.gz /home/MyImages
+
+Create tar.bz2 Archive File
+The bz2 feature compress and create archive file less than the size of the gzip.
+ The bz2 compression takes more time to compress and decompress files as compared to gzip which takes less time. 
+To create highly compressed tar file we use option as j.
+
+tar -cvfj Phpfiles-org.tar.bz2 /home/php
+
+Uncompress tar.gz Archive File

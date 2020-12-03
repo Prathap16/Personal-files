@@ -1,0 +1,289 @@
+SOFTWARE MANAGEMENT
+
+To manage the software in Linux, two utilities are used,
+1. RPM – REDHAT PACKAGE MANAGER
+2. YUM – YELLOWDOG UPDATER MODIFIED
+
+
+RPM –REDHAT PACKAGE MANAGER
+RPM is a package managing system (collection of tools to manage software packages). RPM is a powerful software management tool for installing, uninstalling, verifying, querying and updating software packages. RPM is a straight forward program to perform the above software management tasks.
+Features:
+? RPM can verify software packages.
+? RPM can be served as a powerful search engine to search for software’s.
+? Components, software’s etc can be upgraded using RPM without having to reinstall them
+? Installing, reinstalling can be done with ease using RPM
+? During updates RPM handles configuration files carefully, so that the customization is not lost.
+
+LAB WORK:-
+To check all the installed packages in the system
+? To check all the installed packages in the system, the syntax is
+? #rpm –qa (where q stands for query, and a stands for all)
+
+To check whether a particular package is installed or not
+? To check whether a package is installed or not out of the list of installed package, the syntax is
+#rpm –qa <package name> or
+#rpm –q < package name>
+#rpm –qa vsftpd or #rpm –q vsftpd
+
+? One more method of checking the installed package, when you are not sure about the package name, like whether it starts with capital letter and full name etc.
+#rpm –qa | grep –i < package name>
+#rpm –qa |grep –i vsft*
+
+
+To check whether a package is consistent or not, before installing it. (Testing the installation)
+? To check the package’s consistency,
+? Move to the directory where you have kept the rpm package which you wish to install
+? The command used to check the package’s consistency is
+#rpm –ivh - -test <package name>
+Where i = install, v= verbose view, and h = hash progress.
+#rpm –ivh - - test finger-0.17-39.el6.i686.rpm
+
+? To install the package the syntax is
+#rpm –ivh <package name>
+#rpm –ivh finger-0.17-39.el6.i686.rpm
+
+? To check whether it is installed or not
+#rpm –qa finger
+? Check the installed package by using it command, finger is used to check user’s details.
+#finger <user name>
+#finger ktuser
+
+To remove a package or uninstall the package
+? To remove a package the syntax is
+#rpm –e < package name>
+#rpm –e finger
+Verify it by #rpm –q or rpm –qa command
+
+To see the information about the package before installing
+? To see the info about a particular package which is not installed, move to the directory where you have kept the packages.
+? To see the info of a package, the syntax is
+#rpm –qip <package name> (where q is for query, i is for install and p is for package)
+#rpm –qip finger-0.17-39-el6.1686.rpm
+To see the information about the installed package
+
+? To see the information or details about the installed package, the syntax is
+#rpm –qi < package name >
+#rpm –qi vsftpd
+
+To check the package of a particular command
+? To check the package of a particular command, first check the installed location of a command
+#which <command name>
+#which cat
+? Now, use the following command,
+#rpm –qf <path of the command>
+#rpm –qf /bin/cat
+
+To see the configuration files of the installed package
+? To see the configuration files of the installed package, the syntax is
+#rpm –qlc <package name>
+
+To install a package without installing dependencies
+? Some rpm requires some other packages to be installed before it can be installed; this requirement is termed as ‘dependency’. This means that before installing a package we need to install the required packages first, so that it can work properly.
+? But sometimes we can skip installing the dependency, if we don’t have that dependent software with us.
+? The syntax for it is
+#rpm –ivh <package name> - -nodeps
+#rpm -ivh util-linux-ng 2.17.2-6.el6.i686 - -nodeps
+To update a particular package
+? To update a package the syntax is
+#rpm –Uvh <package name>
+#rpm –Uvh vsftpd -2.2.4
+
+
+
+YUM – YELLOWDOG UPDATER MODIFIED
+? The Yellow dog Updater Modified (YUM) is a package management application for computers running Linux operating systems.
+? Yum is a standard method of managing the installation and removal of software. 
+Several graphical applications exist to allow users to easily add and remove packages; however, 
+many are simply friendly interfaces with yum running underneath. 
+These programs present the user with a list of available software and pass the user's selection on for processing. 
+It is yum that actually downloads the packages and installs them in the background.
+? Packages are downloaded from collections called repositories, which may be online, on a network, and/or on installation media. 
+If one package due to be installed relies on another being present, this dependency can usually be resolved without the user needing to know the details. For example, a game being installed may depend on specific software to play its music. The problem of solving such dependencies can be handled by yum because it knows about all the other packages that are available in the repository.
+? Yum will work only from Cantos 5 / Red hat 5 and latest versions of fedora.
+ For Old releases like RHEL 4 you need to use up2date command to update your rpm based packages.
+? Yum uses a configuration file at /etc/yum.conf.
+
+Working with YUM commands.
+
+To list the available packages in the repository
+? #yum list ( or) #yum list all (or) #yum list |more (to view line wise)
+As we have seen first command, second will also gives exactly same output. let us see the third command
+
+To list all the installed packages in the system.
+? To view all the installed packages in the system, the syntax is
+#yum list installed
+
+To check a particular package is installed or not
+? To check whether a package is installed or not the syntax is
+#yum list installed <package name>
+#yum list installed vsftpd
+#yum list |more
+
+To install a package using yum
+? Installing a package using yum does not requires full package name as in the case of rpm, and it also automatically resolves the dependencies as well.
+? The syntax for installing a package is
+#yum install <package name>
+#yum install finger* (where * means anything with name “finger”)
+It will prompt you for y/n to continue, type y and continue installing the package
+? installing a package without being prompt for y or n, the syntax is
+#yum install <package name > -y
+#yum install finger* -y
+
+To remove the package with yum command
+? To remove the package using yum command, the syntax is
+#yum remove <package name>
+#yum remove finger -y
+
+To update the package using yum
+? To update the package using yum command, the syntax is
+#yum update <package name>
+#yum update httpd
+
+To install a package locally from a folder, pendrive or cd rom
+? Move to the package where you have stored the package to be installed
+The syntax for installing a package locally is
+#yum localinstall <packagename> -y
+#yum localinstall finger* -y (or) #yum localinstall finger-0.17-39.el6.i686.rpm -y
+
+To see the information about the package
+#yum info <package name>
+#yum info finger
+
+To list and install a group of packages using yum
+? To list the group of package the syntax is
+#yum grouplist
+
+? Let’s try install package from group called “urdu support”, the syntax is
+#yum groupinstall <package name> -y
+#yum groupinstall urdu support -y
+
+Removing a Group package using yum
+? To remove a group, the syntax is
+#yum groupremove <package name>
+#yum groupremove urdu support.
+
+
+
+
+
+How To Set Up and Use Yum Repositories on a CentOS 7 
+CentOSSystem Tools
+By Mitja Resman
+
+PostedOctober 1, 2013 1.1mviews
+Introduction
+YUM Repositories are warehouses of Linux software (RPM package files). RPM package file is a Red Hat Package Manager file and enables quick and easy software installation on Red Hat/CentOS Linux. YUM Repositories hold a number of RPM package files and enable download and installation of new software on our VPS. YUM Repositories can hold RPM package files locally (local disk) or remotely (FTP, HTTP or HTTPS). YUM Configuration files hold the information required to successfully find and install software (RPM packages files) on our VPS.
+
+Most common and largest CentOS YUM Repositories:
+
+CentOS Official Repository Mirrors
+EPEL Repository Mirrors
+RPMforge Repository
+ElRepo Repository
+Advantages of installing software from YUM Repositories are:
+
+Easy Software Management - installing, updating, and deleting packages is simple
+Software Dependency Resolution - software dependencies are automatically resolved and installed
+Official Red Hat/CentOS Package Manager - YUM is official Red Hat/CentOS package manager
+Sometimes the software we want to install on our CentOS VPS is not available from default Official CentOS Repositories. In situations like this, we can use one of the additional (Non-Official) CentOS YUM Repositories listed above. Additional repositories sometimes hold newer versions of software packages than Official CentOS Repositories.
+
+YUM Repository Configuration File
+We can install new software on Red Hat/CentOS Linux with "yum install packagename" command from console. Running this command first checks for existing YUM Repository configuration files in /etc/yum.repos.d/ directory. It reads each YUM Repository configuration file to get the information required to download and install new software, resolves software dependencies and installs the required RPM package files.
+
+YUM Repository configuration files must:
+
+be located in /etc/yum.repos.d/ directory
+have .repo extension, to be recognized by YUM
+Available YUM Repository configuration file options are:
+
+Repository ID - One word unique repository ID (example: [examplerepo])
+Name - Human readable name of the repository (example: name=Example Repository)
+Baseurl - URL to the repodata directory. You can use file://path if repository is located locally or ftp://link, http://link, https://link if repository is located remotely - HTTP Authentication available http://user:password@www.repo1.com/repo1 (example: baseurl=http://mirror.cisp.com/CentOS/6/os/i386/)
+Enabled - Enable repository when performing updates and installs (example: enabled=1)
+Gpgcheck - Enable/disable GPG signature checking (example: gpgcheck=1)
+Gpgkey - URL to the GPG key (example: gpgkey=http://mirror.cisp.com/CentOS/6/os/i386/RPM-GPG-KEY-CentOS-6)
+Exclude - List of the packages to exclude (example: exclude=httpd,mod_ssl)
+Includepkgs - List of the packages to include (example: include=kernel)
+Required YUM Repository configuration file options are:
+
+Repository ID
+Name
+Baseurl
+Enabled
+Step 1: Create YUM Repository configuration file
+Use your favorite console text editor and create a new YUM Repository configuration file with .repo extension in /etc/yum.repos.d/ directory. To create a new file with "vi editor" run the following command from console:
+
+vi /etc/yum.repos.d/example.repo
+Step 2: Insert YUM Repository options
+Insert the desired YUM Repository options to the newly created YUM Repository configuration file and save changes.
+
+Example YUM Repository Configuration file:
+/etc/yum.repos.d/example.repo
+
+[examplerepo]
+name=Example Repository
+baseurl=http://mirror.cisp.com/CentOS/6/os/i386/
+enabled=1
+gpgcheck=1
+gpgkey=http://mirror.cisp.com/CentOS/6/os/i386/RPM-GPG-KEY-CentOS-6
+CentOS DVD ISO YUM Repository
+CentOS DVD ISO holds a large number of software (RPM package files) which are available for installation during Red Hat/CentOS installation wizard. We can also use RPM package files from CentOS DVD ISO to create CentOS DVD ISO YUM Repository. This way we can install all of the software available on CentOS DVD ISO with "yum install packagename" command from VPS console even after we have completed Red Hat/CentOS installation wizard.
+
+Step 1: Download/Transfer CentOS DVD ISO
+CentOS DVD ISO files are available for download at http://mirror.centos.org/. We need to download or transfer CentOS DVD ISO to our VPS:
+
+Transfer - If we have already downloaded CentOS DVD ISO to a machine different than our VPS, we will need to transfer it from our machine to our cloud server via FTP or SSH. We can do this with software like WinSCP (free SFTP client and FTP) or similar.
+Download - We can download CentOS DVD ISO directly to our VPS with "wget" command from console (please change HTTP link accordingly):
+wget http://mirror.lihnidos.org/CentOS/6.4/isos/i386/CentOS-6.4-i386-LiveDVD.iso
+Step 2: Mount CentOS DVD ISO
+To view the CentOS DVD ISO data, we first need to mount it on desired location. We usually mount CD-ROM, USB devices or ISO files to /mnt directory (if free to use). To mount CentOS DVD ISO run the following command from console (please change /path/to/iso and /mnt accordingly):
+
+mount -o loop /path/to/iso /mnt
+Step 3: Create YUM Repository Configuration file
+To start using the newly created Custom YUM Repository we must create YUM Repository Configuration file with .repo extension, which must be placed to /etc/yum.repos.d/ directory. Instructions to create YUM Repository Configuration file are covered in the first topic of this article called "YUM Repository Configuration File".
+
+Example CentOS DVD ISO YUM Repository Configuration file:
+/etc/yum.repos.d/centosdvdiso.repo
+
+[centosdvdiso]
+name=CentOS DVD ISO
+baseurl=file:///mnt
+enabled=1
+gpgcheck=1
+gpgkey=file:///mnt/RPM-GPG-KEY-CentOS-6
+Custom YUM Repository
+Sometimes we need to create a Custom YUM Repository (handy when the VPS has no internet connection). We can create a Custom YUM Repository from a desired number of selected RPM package files. Custom YUM Repository only holds the RPM package files we want to include in.
+
+Step 1: Install "createrepo"
+To create Custom YUM Repository we need to install additional software called "createrepo" on our cloud server. We can install "createrepo" by running the following command from console:
+
+yum install createrepo
+Step 2: Create Repository directory
+We need to create a new directory that will be the location of our Custom YUM Repository and will hold the desired RPM package files. We can do this with the following command from console (choose a different /repository1 directory name if you like):
+
+mkdir /repository1
+Step 3: Put RPM files to Repository directory
+If RPM package files are not yet present on our VPS we need to transfer them to our cloud server via FTP or SSH - use software like WinSCP (free SFTP client and FTP) or similar. We can also download RPM package files directly to our VPS (internet connection needed) with "wget" command from console (please change HTTP link accordingly):
+
+wget http://mirror.lihnidos.org/CentOS/6/os/i386/Packages/NetworkManager-0.8.1-43.el6.i686.rpm
+If RPM files are already present on our VPS, we need to Copy or Move these files to the newly created directory from "Step 2". We can move RPM files with the following command from console (please change /path/to/rpm and /repository1 accordingly):
+
+mv /path/to/rpm /repository1
+We can copy RPM files with the following command from console (please change /path/to/rpm and /repository1 accordingly):
+
+cp /path/to/rpm /repository1
+Step 4: Run "createrepo"
+Createrepo command reads through Custom YUM Repository directory from "Step 2" and creates a new directory called "repodata" in it. Repodata directory holds the metadata information for the newly created repository. Every time we add additional RPM package files to our Custom YUM Repository, we need to re-create Repository metadata with "createrepo" command. We can create new repository metadata by running the following command from console (please change /repository1 accordingly):
+
+createrepo /repository1
+Step 5: Create YUM Repository Configuration file
+To start using the newly created Custom YUM Repository, we must create the corresponding YUM Repository Configuration file with .repo extension, which must be placed to /etc/yum.repos.d/ directory. Instructions to create YUM Repository Configuration file are covered in the first topic of this article called "YUM Repository Configuration File".
+
+Example Custom YUM Repository Configuration file:
+/etc/yum.repos.d/custom.repo
+
+[customrepo]
+name=Custom Repository
+baseurl=file:///repository1/
+enabled=1
+gpgcheck=0

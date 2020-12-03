@@ -1,0 +1,22 @@
+Input output redirectories:
+
+> & >> :
+
+**Syntax: #command > filename
+
+if file name is alredy created it will ovewright the content of file.
+
+**Syntax:#command >> filename
+
+it will append or add the content to file.
+
+** Using 	Tee:
+
+it not only redirect the  output to new file and also show the out put of that command.
+ls 
+ 	#ls -i|tee newfilename
+
+ERROR Redirectory:
+ls -l /root/  2> error
+ls -l /root/  2> error.file 1>&2 
+ls -l /root/  > output.file 2>&1

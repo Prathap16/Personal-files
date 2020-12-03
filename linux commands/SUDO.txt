@@ -1,0 +1,29 @@
+SUDO
+? Sudo stands for either "substitute user do" or "super user do" (depending upon how you want to look at it). 
+What sudo does is incredibly important and crucial to many Linux distributions. 
+Effectively, sudo allows a user to run a program as another user (most often the root user). 
+There are many that think sudo is the best way to achieve "best practice security" on Linux
+? Users can login using their username and password and can issue administrative commands placing sudo in front of the commands, 
+e.g. sudo rpm -Uvh *.rpm , to run the command which installs and updates programs in Linux (rpm).
+
+? The file /etc/sudoers file has the rules that users have to follow when using sudo command. That means that whatever commands access is provided to any user in /etc/sudoers file, that user can only run those commands.
+? Do not edit the /etc/sudoers directly; instead use "visudo" command to edit the sudoers file. There are two reasons for that- it prevents two users from editing the file at the same time, and it also provides limited syntax checking. Even if you are the only root user, you need the syntax checking, so use "visudo".
+
+Advantages of using SUDO
+Two of the best advantages about using sudo are:
+
+? Limited user privileges
+As we have studied above that we can restrict users to use certain commands as a privileged user as per the role of the user.
+E.g.: Networking commands for Network user and Admin commands for Admin users etc.
+
+? Logs of the actions done by users
+All commands executed by sudo users will be stored in /var/log/secure file, but still if you want you can make your own log file by passing an entry in /etc/sudoers file at the bottom as “Defaults logfile=/var/log/sudo.log” or whatever name you want, to save the logs of what commands is executed by which sudo user.
+The /etc/sudoers file
+? As we learnt above that it is the configuration file for sudo users, which is used to assign specific commands to the specific users or groups.
+? Always use visudo command to edit this file. it prevents two users from editing the file at the same time, and it also provides limited syntax checking .
+? When you run visudo command the output will be as follows
+? As you can see there is basically one line
+? root ALL=(ALL) ALL
+? This lines means that the user root can execute from ALL terminals, acting as ALL (any) users, and run ALL (any) command.
+? So the first part is the user, the second is the terminal from where the user can use sudo, the third is as which user he may act, and the last one, is which commands he may run.
+? The advantage of visudo command , while editing if there are any syntax error it will be reflected as follows

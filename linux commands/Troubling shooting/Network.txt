@@ -1,0 +1,37 @@
+once you logged into server just check your connection by pinging google dns.
+ping 8.8.8.8
+if it is reaching then your system is upand running.
+if it is host is unreachble then do below steps
+
+***Check your network configuration
+Make sure the network interfaces such as eth0 are enabled. To see all the configured interfaces, use this command.
+By using ip addr.
+
+The output of the command will show the status of each network interface on the server with “state UP” or “state DOWN”, for example as below.
+2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
+
+Turn on any disabled interfaces with the next command.
+ifup <interface name>
+
+Here the interface name is one of the names listed in the ip addr command output like eth0, eth1 or eth2.
+
+When all network interfaces have been enabled, try using the ping command again. If the problem persists, check that the network interfaces have IPs assigned to them, and they match with the information on Network section of the UpCloud control panel.
+
+Try restarting any problematic interface with the following commands.
+
+sudo ifdown <interface name>
+sudo ifup <interface name>
+If either of these commands fails, it is possible that the interface is in a state unknown to the command script. 
+Try the same commands again with --force parameter to resolve any such issues.
+
+sudo ifdown --force <interface name>
+sudo ifup <interface name>
+If restarting the network interface fixed the issue, great! If not, continue with the troubleshooting.
+
+Check the network configuration file:
+----------------------------------------------------------------------------
+In CentOS and other Red Hat variants, these configurations are split into separate files for each network interface 
+and stored in /etc/sysconfig/network-scripts/. The default interface for internet connection is usually called eth0, 
+open the corresponding configuration file.
+
+sudo vi /etc/sysconfig/network-scripts/ifcfg-eth0

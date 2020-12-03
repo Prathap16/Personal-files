@@ -1,0 +1,114 @@
+Managing Partitions and file system:
+
+1 Parition: A continous set of blocks on hard drive that treated as independent drives.
+
+Why Partitioning:
+
+*...Encapsulate your data.
+
+*...Increace disk space efficiency.
+
+*...Limit the data growth.
+
++++++++File system++++++++
+The method of storing data in an organised fation on drive.
+
+Type of file systems:
+ExT2
+ExT3
+ExT4
+
++++Mounting+++++++
+the process of attacinf directory to the portition aand file system.
+
+Files which is related to mounting.
+
+/etc/mtab >>>current mounting points
+/etc/fstab .>>>>>>permanent mount points.
+
+Lab work:+++++++++++++++
+
+1. To view the existing portition.
+
+	#fdisk -l or parted -l
+
+2. Partition Administration.
+
+	#fdisk device name
+	#fdisk /dev/sdb
+
+		*m---to print the options (or) for help
+		*p__Print the partition tab le.
+		*n---Create new  partion.
+		* l__list the know partition types.
+
+		*t--Change partion system id
+		*w--to write table and quite
+		*q--quite without saving.
+		*d--to delete the partition.
+
+3. Updating partion table without restart.
+
+	#partprobe /dev/sdb or #partx -a /dev/sdb
+
+4. Formating the file system.
+
+	#mkfs.ext2 /dev/sdb1
+	#mkfs.xfs /dev/sdb2
+5. Mounting:.
+
+	1 Temporary
+	2 Permanent
+....1 Temaprary mounting.
+	#mount /dev/sdb1 /ktdir
+	#mount devicename mount poit directory
+.......to view all mount points
+	#mount
+.......to unmount 
+	#umount mountpoint directorypath
+	#umount /ktdir	
+
+......2 Permanent mounting
+
+.....Make an entry in /etc/fstab
+	#vi /etc/fstab
+
+Device name	mountpoint	typerof fs		mountingoption	dumping checksequemce
+/dev/sdb1	/root/ktdir	ext4		defaults		0 0
+
+........update the entry in fstab and mount all entries in fstab
+	#mount -a
+......if you umount you will get some errors.
+	1.your are in same directory and trying to unmount.
+	2.some users are present using content in that directry.
+		#fuser -cu /dev/sdb2
+	check for fles which are open.
+		#lsof /dev/sdb2
+Unmounting is like removing entry in fstab.
+
+
+Disk free command:
+	#df option filename
+		1.h human readable
+		2.T type of filesystem
+***Assigning lable to partition:
+	#e2lable devicename lable name
+	#e2lable /dev/sdb1 ravi
+
+Swap+
+________________________________________
+Swap space in Linux is used when the amount of physical memory (RAM) is full. If the system needs more memory resources and 
+the RAM is full, inactive pages in memory are moved to the swap space. 
+While swap space can help machines with a small amount of RAM, it should not be considered a replacement for more RAM.
+
+Commands to be used in maintaining Swap spaces
+? To see the memory size and the swap space size
+#free –m
+? To see the swap usage use
+#swapon –s
+? To format the partition with swap file system use
+#mkswap <parititon name>
+? To activate the swap space use
+#swapon <partition name>
+? To deactivate the swap space use
+#swapoff <partition name>

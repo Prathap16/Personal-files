@@ -1,0 +1,89 @@
+Job Automation:
+Sometimes, you may have tasks that need to be performed on a regular basis or at certain predefined intervals. 
+Such tasks include backing up databases, updating the system, performing periodic reboots and so on. 
+Such tasks in linux are referred to as cron jobs (Crontab).
+
+
+
+Important Files related to cron and at
+? /etc/crontab is the file which stores all scheduled jobs
+? /etc/cron.deny is the file used to restrict the users from using cron jobs.
+? /etc/cron.allow is used to allow only users whose names are mentioned in this file to use cron jobs. (this file does not exist by default)
+? /etc/at.deny same as cron.deny for restricting at jobs
+? /etc/at.allow same as cron.allow for allowing user to use at jobs.
+
+/etc/crontab
+
+* * * * * @user  command to be executed
+here 
+1st *  minute(0-59)
+2nd * hour(0-23)
+3rd *  day of month (1-31)
+4th * month(1-12)
+5th * day of week(0-6)
+
+Options
+Explanation
+
+*
+Is treated as a wild card. Meaning any possible value.
+
+*/5
+Is treated as ever 5 minutes, hours, days, or months. Replacing the 5 with another numerical value will change this option.
+
+2,4,6
+Treated as an OR, so if placed in the hours, this could mean at 2, 4, or 6 o-clock.
+
+9-17
+Treats for any value between 9 and 17. So if placed in day of month this would be days 9 through 17. Or if put in hours it would be between 9 and 5.
+
+
+
+Crontab Commands
+Command
+Explanation
+crontab –e
+Edit your crontab file, or create one if it doesn’t already exist.
+crontab –l
+Display your crontab file.
+crontab –r
+Remove your crontab file.
+crontab -u
+If combined with –e, edit a particular user’s Crontab file and 
+if combined with –l, display a particular user’s crontab file. If combined with –r, 
+deletes a particular user’s Crontab file
+
+Restrict users “ktuser” “amit” “vivek” from using cron jobs
+To restrict any user from using cron job facility, enter their names in /etc/cron.deny and save it
+#vim /etc/cron.deny
+
+
+
+
+AT JOBS
+? “at” is used to schedule the job for a particular time or interval, in other words it is used only for one time or only for one interval.
+
+The syntax to use at job for this task is
+#at <time>
+Task
+Ctrl+d to save it.
+#at now
+
+Schedule at job to get a mail at 11:30 AM regarding meeting
+? it is very similar to above task, use the following
+#at 11.30am
+
+Schedule at job to get a mail at 10.30 AM till three days from now for a meeting
+#at 10.30am + 3days
+
+To check the list of at jobs
+#at –l or #atqTo check what is scheduled
+#at –c < job id >
+#at –c 18
+
+To remove a job
+? check the job id
+? To remove a job the syntax is
+#atrm < job id >
+#atrm 17
+#atrm 18

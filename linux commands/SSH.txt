@@ -1,0 +1,88 @@
+Secure shell: SSH
+++++++++++++++++++++++++++++++++++++++++++
+The ssh command provides a secure encrypted connection between two hosts over an insecure network.
+The ssh command is used from logging into the remote machine, 
+transferring files between the two machines, and for executing commands on the remote machine.
+
+
+LAB WORK:-
+
+Accessing the remote machine using ssh
+To access the remote machine using ssh, the syntax is
+#ssh <ip address/ host name of remote machine>
+Note: hostname can only be used when the hostname is saved in /etc/hosts file or, if DNS is configured.
+#ssh 192.168.10.98
+
+Password less login using SSH keys
+? As a system administrator, one person will be assigned to manage many systems, 
+for example one person has to manage more than 10 systems at a time. 
+In this situation admin has to transfer some files from one system to another 9 systems or vice versa, 
+for every login on remote system it will prompt for password. Even for transferring files for every transfer we need to enter the password.
+? Above situation will be very annoying for system admin to type password for every step. 
+Therefore SSH provides a best way to escape password prompting every now and then.
+? By generating SSH keys, a public key and a private key, 
+
+
+
+an admin can copy the public key into other system and done, 
+it will work as authorized access from the admin’s system. 
+Now whenever we are logging from admin’s system to other system in which we have stored the public key of admin’s system, 
+it will not prompt us for password and we can login to that system as many time as we want without being prompt for the password.
+? SSH keys are an implementation of public-key cryptography. 
+They solve the problem of brute-force password attacks by making them computationally impractical.
+? Public key cryptography uses a public key to encrypt data and a private key to decrypt it.
+
+Generating SSH key pair
+? To generate the SSH key pair, the syntax is
+# ssh-keygen
+
+Copying the public key on Client system
+? To copy the server’s public key in client system, the command is
+#ssh-copy-id –i <public key location> <clients IP address> (or user @ client IP)
+#ssh-copy-id -i /root/.ssh/id_rsa.pub 192.168.10.95
+
+Enter the password of the client to proceed, check it on client side whether it is copied or not
+Move to client system and check whether the key is copied properly or not
+? To check the key navigate to /root/.ssh/ directory and check for authorzed_keys file which will hold all the system which are authorized and 
+will not be asked for password..
+#cd /root/.ssh/
+#cat authorized_keys
+
+Try login to the client machine using SSH, check whether it is asking for password
+? For logging into client machine the procedure is same as shown earlier. But as we have assigned a passphrase 
+it will ask us for it. Once you enter a passphrase it will last until you logged out of server’s session. Let’s see it practically.
+#ssh 192.168.10.95
+
+Remote file transfer with SCP and RSYNC
+
+SCP (SECURE COPY)
+scp stands for secure cp (copy), which means that you can copy files across an ssh connection that will be encrypted, and therefore secured. 
+As scp will be using ssh protocol to transfer the data, 
+hence it is termed as the safest method of transferring data from one location to another
+
+#scp <file name > <remote hosts IP >:/<location to copy the file >
+#scp /ktfile 192.168.10.95:/root/
+
+The syntax for SCP a file from destination location.
+#scp <source system’s IP>:/<location of file to be copied> <destination location to copy>
+
+To copy a directory using SCP to remote machine from source’s location
+We are having a directory ktdir in“/” directory, in the server ktlinux.kt.com who’s IP is 192.168.10.98, and we need to copy the same in other server’s i.e. ktcl5.kt.com with an IP 192.168.10.95, /root directory. Then,
+The syntax SCP a directory from source’s location, the syntax is
+#scp <option> <dir name > <remote hosts IP >:/<location to copy the directory >
+#scp -r /ktdir 192.168.10.95:/root/
+
+
+RSYNC (REMOTE SYNCHRONIZATION)
+? rsync is a very good program for backing up/mirroring a directory tree of files from one machine to another machine, 
+and for keeping the two machines "in sync." 
+It's designed to speed up file transfer by copying the differences between two files rather than copying an entire file every time.
+? For example, Assume that we are suppose to take the backup of a system and copy the same to another system. 
+For first time we will copy entire directory, but every day if we copy entire directory it will kill lots of time.
+ In such situation if rsync is used it will only copy the updated files/directories rather than copying all files/directories inside main directory, 
+which saves lots of time and speedup the transfer
+? If rsync is combined with ssh it makes a great utility to sync the data securely. If rsync is not used with ssh, the risk sniffing will always be there.
+
+#rsync –rv -e ssh /ktdir 192.168.10.95:/root/
+
+#rsync –avz –e ssh <source file> <destination ip>:/<location of file >

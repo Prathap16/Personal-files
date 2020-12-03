@@ -1,0 +1,128 @@
+Filter commands____________
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+*less commands : see the output in line wise or page wise.
+
+	#less filename
+
+*more command to display output in page wise.
+
+	#more filename
+
+*head : it is used to display the top 10 lines of file.
+
+	#head filename
+	#head -5 file1
+
+*tail: it is used to display the bottom 10 lines of file.
+
+	#tail -6 file1
+
+SORT+++++++++++++++++++++
+_____________________________________________
+
+
+
+*Sort : used to sort the output in numerical or alphabetcal order.
+
+	#sort filename
+
+*to sort by number.
+
+	#sort -h file
+	#sort -d file
+*to delete the duplicate entities in ouput.
+
+	#sort -u file
+
+*to sort the output in reverse order.
+
+	#sort -r file
+
+*sort the content f files based on coloums.if coloum is numerical.
+
+	#sort -nk3 file
+
+*sort the content of file based on coloum.if colounm is non numerical.
+
+	#sort -k4 file
+
+*sort the content of two files and get output in oneline.
+
+	#sort file1 file2
+	to remove duplicate entities in these files.
+	#sort -u file1 file2
+
+*sort the output of file based on more than one coloum.
+
+	#sort -t "," -nk2,3 -k5 file1
+
+CUT :+++++++++++++
+________________________________________________________
+
+*cut command format.
+
+	#cut option filename
+
+*cut the output based on byte size.
+
+	#cut -b 1,2,3 file1
+	#cut -b 1-5 file1
+	#cut -b 4-7 file1
+	#cut -b 1- file1 
+	#cut -b -6 file1
+
+*cut by the charector by using option -c.
+
+	#cut -c 1,2 files
+	#cut -c 1-3 files
+	#cut -c 1- files
+	#cut -c -6 file
+	#cut -c 3-5 file
+
+*cut the output based on delimeter.
+
+	#cut -d " " -f 3 file
+
+SED ++++++++++++++++++++++++++
+_______________________________________________________________
+
+*basic command format.
+
+	#sed  option script filename
+
+*Used to replace text in the file.
+
+	#sed "s/oldword/newword" file1
+	here s is sabstitution option and / is delimetre
+
+*Replacing the nth occarence of file.
+
+	#sed "s/oldword/newword/4" file1
+	4th occarence will be replacing
+
+*replacing the all the occarece of file.
+
+	#sed "s/oldword/newword/g" filee1
+	here g is global replacement.
+
+*Replacing nth occarence to all occarence.
+
+	#sed "s/oldword/newword/4g" file
+
+*delimeters used.
+
+	#sed "s_/user/bin_/user/sbin_/g" file1
+	#sed "s:/user/bin:/user/admin:" file1
+	#sed "s|/usr/bin|/slas/bin|" file1
+Word count:
+#wc
+#wc -l
+
+Given a file, replace all occurrence of word "ABC" with "DEF" from 5th line till end in only those lines that contains word "MNO"
+
+sed –n '5,$p' file1|sed '/MNO/s/ABC/DEF/'
+
+Print the 10th line without using tail and head command.
+
+sed –n '10p' file1

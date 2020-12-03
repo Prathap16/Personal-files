@@ -1,0 +1,99 @@
+MANAGING INSTALLED SERVICES
+? Services are programs (called daemons) that once started run continuously in the background and are ready for input or monitor changes in your computer and respond to them. For example the Apache server has a daemon called httpd (the d is for daemon) that listens on port 80 on your computer and when it receives a request for a page it sends the appropriate data back to the client machine.
+? Many services are required to run all the time however many can be safely turned of for both security reasons as running unnecessary services opens more doors into your computer, but also for performance reasons. It may not make much difference but your computer should boot slightly faster with less services it has to start on boot.
+? One of the techniques in every Linux administrator's toolbox to improve security of a box is to turn off unneeded services.
+chkconfig and service commands
+There are 2 commands used to control services:
+? service - This controls the starting and stopping of services during a session, these setting are not saved. If you start Apache this way but it is not set to start on boot using the above method then it will continue to run but on next boot will not start automatically.
+? chkconfig - This controls which services are set to start on boot, by their nature these setting are saved and are applied at next boot. Changing these settings will not start the service immediately; it will just flag them to be started from the next boot.
+? The command use for maintaining a service is
+#service <name of the service> status --- To check the status of the service
+#service <name of the service> start --- To start the service
+#service <name of the service > stop --- To stop a service
+#service <name of the service> reload --- To reload the service
+#service <name of the service> restart --- To restart the service
+? The command use for service availability is
+#chkconfig - -list --- To check the availability of service
+#chkconfig <service> on --- To make the service available after restart
+#chkconfig <service> off --- To make the service unavailable after restart
+
+LAB WORK:-
+Check the status of ftp service “vsftpd”
+? To check the status of the above service
+#service vsftpd status
+Start the ftp services
+? To start the ftp service, the command is
+#service vsftpd start
+Reload the ftp services, may be required after doing some change in config file.
+? To reload the service, the command is
+#service vsftpd reload
+To restart the ftp or any service, required when reload does not work
+? To restart the ftp services, the command will be
+#service vsftpd restart
+
+Check the status of the all service availability.
+? To check the status of all service availability, use
+#chkconfig - -list
+Note: Where 0 1 2 3 4 5 6 are the run levels in Linux, The output shows that on which run level the service is available even after reboot.
+Check the status of a particular service, say “vsftpd”
+? To check the status of a vsftpd service, the command is
+#chkconfig - - list <name of the service>
+#chkconfig - - list vsftpd
+Make the service availability on for vsftpd.
+? To make the service availability on for vsftpd service,
+#chkconfig vsftpd on
+Make the service availability off for vsftpd
+? To make the service availability off the command is
+#chkconfig vsftpd off
+Make the service vsftpd availablily on only on runlevel 5
+? To make the service availablilty on, on a particular runlevel , the syntax is
+#chkconfig - - level <1-6> <service> <on/off>
+#chkconfig - - level 5 vsftpd on
+
+
+New command ++++++++++++++++++++++
+_______________________________________________________________________
+Listing Service Units and Unit files
+To list all the units that are loaded
+
+# systemctl list-units
+To list only units of type service
+
+# systemctl list-units -t service
+To list all installed unit files of type service
+
+# systemctl list-unit-files -t service
+To list all installed unit files of type service
+
+# systemctl list-unit-files -t service
+You can use the --state option to filter the output by the state of the unit. The following command lists all services that are enabled.
+
+# systemctl list-unit-files --state enabled
+
+Start and Stop service
+This is quite straightforward, start option to start a service and stop option to stop a service
+
+# systemctl start service_name.service
+# systemctl stop service_name.service
+
+Restart and Reload services
+The restart option will restart a service that is running. If the service is not running, it will be started.
+
+# systemctl restart service_name.service
+If you want to restart the service only if its running then use the try-restart option.
+
+# systemctl try-restart service_name.service
+The reload option will try to reload the service specific configuration of a unit if it is supported.
+
+# systemctl reload service_name.service
+Enable and Disable services
+Units can be enabled or disabled using the enable or disable options of systemctl command. When a unit a enabled symbolic links are created in various locations as specified in the [install] section of the unit file. Disabling a unit will remove the symbolic links that wer created when the unit was enabled.
+
+# systemctl enable service_name.service
+# systemctl disable service_name.service
+
+Reload Unit Files
+Whenever you make any changes to the unit files you need to let systemd know by executing daemon-reload which reloads all unit files.
+
+# systemctl daemon-reload
+
